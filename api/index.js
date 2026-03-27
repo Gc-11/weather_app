@@ -1,6 +1,6 @@
 const express = require("express");
 const axios = require("axios");
-const serverless = require("serverless-http");
+
 const path = require("path");
 
 const app = express();
@@ -65,4 +65,4 @@ app.post("/weather", async (req, res) => {
   }
 });
 
-module.exports = serverless(app);
+module.exports = app;
