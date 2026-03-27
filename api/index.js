@@ -13,21 +13,21 @@ app.use(express.json());
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "ejs");
 
-// ✅ TEST ROUTE
-app.get("/test", (req, res) => {
-  res.send("Vercel working ✅");
-});
 
-// ✅ HOME
 app.get("/", (req, res) => {
-  res.render("index", { weather: null });
+  try {
+    res.render("index", { weather: null });
+  } catch (err) {
+    console.log("Render error:", err.message);
+
+    // fallback if EJS fails
+    res.send("App is running but view failed ❌");
+  }
 });
 
-// ✅ WEATHER
 app.post("/weather", async (req, res) => {
   const city = req.body.city;
 
-  // ✅ FIXED ENV VARIABLE NAME
   const apiKey = process.env.yourapikey;
 
   try {
