@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rain Prediction App</title>
+
+ <style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #4facfe, #00f2fe);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  /* 🌥️ CLOUD BACKGROUND */
+  .clouds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .cloud {
+    position: absolute;
+    font-size: 60px;
+    opacity: 0.7;
+    animation: moveCloud linear infinite;
+  }
+
+  /* Different speeds & positions */
+  .cloud:nth-child(1) {
+    top: 10%;
+    animation-duration: 25s;
+  }
+
+  .cloud:nth-child(2) {
+    top: 30%;
+    animation-duration: 35s;
+    font-size: 80px;
+  }
+
+  .cloud:nth-child(3) {
+    top: 50%;
+    animation-duration: 20s;
+  }
+
+  .cloud:nth-child(4) {
+    top: 70%;
+    animation-duration: 30s;
+    font-size: 70px;
+  }
+
+  .cloud:nth-child(5) {
+    top: 85%;
+    animation-duration: 40s;
+  }
+  .cloud:nth-child(6) {
+  top: 15%;
+  animation-duration: 28s;
+  font-size: 75px;
+}
+
+.cloud:nth-child(7) {
+  top: 25%;
+  animation-duration: 18s;
+  font-size: 55px;
+}
+
+.cloud:nth-child(8) {
+  top: 40%;
+  animation-duration: 32s;
+  font-size: 90px;
+}
+
+.cloud:nth-child(9) {
+  top: 60%;
+  animation-duration: 22s;
+  font-size: 65px;
+}
+
+.cloud:nth-child(10) {
+  top: 75%;
+  animation-duration: 27s;
+  font-size: 50px;
+}
+
+.cloud:nth-child(11) {
+  top: 5%;
+  animation-duration: 38s;
+  font-size: 85px;
+}
+
+.cloud:nth-child(12) {
+  top: 45%;
+  animation-duration: 19s;
+  font-size: 60px;
+}
+
+.cloud:nth-child(13) {
+  top: 68%;
+  animation-duration: 33s;
+  font-size: 95px;
+}
+
+.cloud:nth-child(14) {
+  top: 82%;
+  animation-duration: 24s;
+  font-size: 70px;
+}
+
+
+
+  @keyframes moveCloud {
+    0% {
+      transform: translateX(-100px);
+    }
+    100% {
+      transform: translateX(110vw);
+    }
+  }
+
+  /* 🌟 MAIN CARD */
+  .container {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.199);
+    backdrop-filter: blur(12px);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  input {
+    padding: 10px;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+  }
+
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background: #0077ff;
+    color: white;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #005fcc;
+  }
+
+  .result {
+    margin-top: 20px;
+  }
+
+  .rain {
+    color: #d0f0ff;
+    font-weight: bold;
+  }
+
+  .sun {
+    color: #fffacd;
+    font-weight: bold;
+  }
+
+  .error {
+    color: #ffdddd;
+  }
+</style>
+</head>
+
+<body>
+<div class="clouds">
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+  <div class="cloud">☁️</div>
+</div>
+  <div class="container">
+
+    <div class="cloud1">☁️</div>
+
+    <h1>Rain Prediction App</h1>
+
+    <form action="/weather" method="POST">
+      <input type="text" name="city" placeholder="Enter City" required>
+      <button type="submit">Check</button>
+    </form>
+
+    <% if (weather) { %>
+
+      <% if (weather.error) { %>
+        <div class="error">
+          <p><%= weather.error %></p>
+        </div>
+      <% } else { %>
+
+        <div class="result">
+          <p><strong><%= weather.city %></strong></p>
+          <p>🌡️ <%= weather.temp %>°C</p>
+          <p>☁️ <%= weather.condition %></p>
+
+          <p>
+            Will it rain tomorrow? 
+            <span class="<%= weather.willRain.includes('Yes') ? 'rain' : 'sun' %>">
+              <%= weather.willRain %>
+            </span>
+          </p>
+        </div>
+
+      <% } %>
+
+    <% } %>
+
+  </div>
+
+</body>
+</html>
